@@ -5,7 +5,7 @@ window.onload = function() {
     var Triangle = cla.Triangle;
     var GameObject = cla.GameObject;
     var Vector = cla.Vector;
-    var position = [200, -200, 1000];
+    var position = [100, -100, 1000];
 
     var arr = [
         [-40, 40, -40],
@@ -49,7 +49,7 @@ window.onload = function() {
         var h = jiao * 0.017453293;
         var cos = Math.cos(h);
         var sin = Math.sin(h);
-        game.move([-200, 200, -1000]);
+        game.move([-100, 100, -1000]);
         var matrix1 = [
             [1, (1 - cos) + sin, (1 - cos) - sin],
             [(1 - cos) - sin, 1, (1 - cos) + sin],
@@ -76,7 +76,7 @@ window.onload = function() {
             [0, -sin, cos]
         ]
         game.change(matrix3);
-        game.move([200, -200, 1000]);
+        game.move([100, -100, 1000]);
         context.clearRect(0, 0, 1500, 800);
         game.draw(context);
     }, 30);
