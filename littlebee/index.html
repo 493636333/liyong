@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title></title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<style>
+	ul,body,div,li{
+		padding: 0;
+		margin: 0;
+	}
+	#screen{
+		width: 600px;
+		height:400px;
+		margin:0 auto;
+		background-color: black;
+		color:white;
+		position: relative;
+		overflow: hidden;
+	}
+	ul{
+		position: absolute;
+		top:20px;
+		width: 350px;
+		zoom:1;
+	}
+	ul li{
+		float: left;
+		list-style-type: none;
+		height: 25px;
+		width: 35px;
+	}
+	#startGame{
+		border:1px solid white;
+		padding: 2px;
+		letter-spacing: 3px;
+		cursor:pointer;
+		position: absolute;
+		top:185px;
+		left:265px;
+		width: 80px;
+	}
+	#score{
+		width: 100px;
+		height: 12px;
+		float: left;
+	}
+	.enemy1{
+		background: url('img/1.jpg') no-repeat;
+	}
+	.enemy2{
+		background: url('img/2.jpg') no-repeat;
+	}
+	.enemy3{
+		background: url('img/3.jpg') no-repeat;
+	}
+	.enemy4{
+		background: url('img/4.jpg') no-repeat;
+	}
+	#air{
+		width: 24px;
+		height: 32px;
+		background: url('img/air.jpg');
+		position: absolute;
+	}
+	.zidan{
+		width: 1px;
+		height: 5px;
+		background-color: white;
+		position: absolute;
+	}
+	embed{
+		visibility: hidden;
+		position: absolute;
+	}
+	.boom{
+		width: 33px;
+		height: 33px;
+		background-image: url('img/boom1.png');
+		position: absolute;
+	}
+</style>
+<script type="text/javascript">
+		HTMLElement.prototype.addMethod=function(fnName,fn)
+		{
+			if(typeof HTMLElement.prototype[fnName]!="function")
+			{
+				HTMLElement.prototype[fnName]=fn;
+			}
+		}
+		HTMLElement.prototype.addMethod('remove',function(){
+			var parent=this.parentNode;
+			parent.removeChild(this);
+		})
+	window.onload=function() {
+		var btnStartGame=document.getElementById('startGame');
+		startGame.onclick=function(){
+			this.remove();
+			game.init('screen');
+		}
+
+		var game={
+			oEnemy:{
+				e1:{
+					oStyle:'enemy1',blood:1,score:1,speed:3
+				},
+				e2:{
+					oStyle:'enemy2',blood:2,score:2,speed:4
+				},
+				e3:{
+					oStyle:'enemy3',blood:3,score:3,speed:5
+				},
+				e4:{
+					oStyle:'enemy4',blood:4,score:4,speed:6
+				}
+			},
+			oGuanka:[
+				{
+					map:[2,2,2,2,2,2,2,2,2,2,
+					2,2,2,2,2,2,2,2,2,2,
+					2,2,2,2,2,2,2,2,2,2,
+					1,1,1,1,1,1,1,1,1,1,
+					1,1,1,1,1,1,1,1,1,1,
+					1,1,1,1,1,1,1,1,1,1,
+					],
+					oSpeedX:8,
+					oSpeedY:5
+				},
+				{
+					map:[3,3,3,3,3,3,3,3,3,3,
+					3,3,3,3,3,3,3,3,3,3,
+					3,3,3,3,3,3,3,3,3,3,
+					2,2,2,2,2,2,2,2,2,2,
+					2,2,2,2,2,2,2,2,2,2,
+					2,2,2,2,2,2,2,2,2,2,
+					],
+					oSpeedX:10,
+					oSpeedY:7
+				},
+				{
+					map:[4,4,4,4,4,4,4,4,4,4,
+					4,4,4,4,4,4,4,4,4,4,
+					4,4,4,4,4,4,4,4,4,4,
+					3,3,3,3,3,3,3,3,3,3,
+					3,3,3,3,3,3,3,3,3,3,
+					3,3,3,3,3,3,3,3,3,3,
+					],
+					oSpeedX:14,
+					oSpeedY:9
+				}
+			],
+			init:function(screen){
+				this.oParent=document.getElementById(screen);
+				this.createStore();
+				this.guanka=0;
+				this.createEnemy();
+				this.createAir();
+			},
+			createStore:function(){
+				this.score=document.createElement('div');
+				this.score.innerHTML="分数:<span>0</span>";
+				this.score.id="score";
+				this.oParent.appendChild(this.score);
+			},
+			createEnemy:function(){
+				if(this.arrLi)
+				{
+					document.getElementsByTagName('ul')[0].remove();
+				}
+				var oUl=document.createElement('ul');
+				var map=this.oGuanka[this.guanka].map;
+				for (var i = 0; i < map.length; i++) {
+					var oLi=document.createElement('li');
+					oLi.className=this.oEnemy['e'+map[i]].oStyle;
+					oLi.blood=this.oEnemy['e'+map[i]].blood;
+					oLi.score=this.oEnemy['e'+map[i]].score;
+					oLi.speed=this.oEnemy['e'+map[i]].speed;
+					oUl.appendChild(oLi);
+				};
+				this.oParent.appendChild(oUl);
+
+				this.arrLi=oUl.getElementsByTagName('li');
+				var position=[];
+				var length=this.arrLi.length;
+				for(var i=0;i<length;i++)
+				{
+					var prePosition=[];
+					var li=this.arrLi[i];
+					prePosition.push(li.offsetLeft);
+					prePosition.push(li.offsetTop);
+					position.push(prePosition);
+				}
+				for (var i = 0; i < length; i++) {
+					this.arrLi[i].style.position="absolute";
+					this.arrLi[i].style.left=position[i][0]+"px";
+					this.arrLi[i].style.top=position[i][1]+"px";
+				};
+				this.runEnemy(oUl);
+			},
+			runEnemy:function(oUl){
+				var speedX=this.oGuanka[this.guanka].oSpeedX;
+				var speedY=this.oGuanka[this.guanka].oSpeedY;
+				var that=this;
+				setInterval(function(){
+					var left=oUl.offsetLeft;
+					var width=oUl.offsetWidth;
+					var olw=left+width;
+					var Xcha=that.oParent.offsetWidth-olw;
+					
+					if(Xcha<=speedX&&speedX>0)
+					{
+					 	oUl.style.left=(that.oParent.offsetWidth-width)+"px";
+					 	speedX*=-1;
+					 	oUl.style.top=oUl.offsetTop+speedY+"px";
+					}
+					else if(left<=-speedX&&speedX<0)
+					{
+						oUl.style.left="0px";
+					 	speedX*=-1;
+					 	oUl.style.top=oUl.offsetTop+speedY+"px";
+					}
+					else
+					{
+						oUl.style.left=oUl.offsetLeft+speedX+"px";
+					}
+				},100);
+			},
+			createAir:function(){
+				var air=document.createElement('div');
+				air.id="air";
+				this.oParent.appendChild(air);
+				air.style.top=(this.oParent.offsetHeight-air.offsetHeight)+"px";
+				air.style.left=((this.oParent.offsetWidth-air.offsetWidth)/2)+"px";
+				this.air=air;
+				this.operate(air);
+				this.onFlight();
+			},
+			operate:function(air){
+				var timer=null;
+				var that=this;
+				document.onkeydown=function(ev){
+					if(ev.keyCode==39||ev.keyCode==37)
+					{
+						if(timer==null)
+						{
+							
+							var ev=ev||window.event;
+							var w=that.oParent.offsetWidth;
+							timer=setInterval(function(){
+								if(ev.keyCode==39){
+									if(air.offsetLeft>=w-air.offsetWidth)
+									{
+										air.style.left=(w-air.offsetWidth)+"px";
+									}
+									else
+									{
+										air.style.left=(air.offsetLeft+7)+"px";
+									}
+								}
+								if(ev.keyCode==37)
+								{
+									if(air.offsetLeft<=0)
+									{
+										air.style.left=0;
+									}
+									else
+									{
+										air.style.left=(air.offsetLeft-7)+"px";
+									}
+								}
+							},30);
+						}
+					}
+				}
+				document.onkeyup=function(ev){
+
+						var ev=ev||window.event;
+						if(ev.keyCode==39||ev.keyCode==37)
+						{
+							clearInterval(timer);
+							timer=null;
+						}
+						if(ev.keyCode==32)
+						{
+							that.createZiDan(air);
+						}
+					}
+			},
+			createZiDan:function(air){
+				var zidan=document.createElement('div');
+				zidan.className="zidan";
+				this.oParent.appendChild(zidan);
+				zidan.style.left=(air.offsetLeft+air.offsetWidth/2-1)+"px";
+				zidan.style.top=(this.oParent.offsetHeight-air.offsetHeight)+"px";
+				this.ring();
+				this.runZiDan(zidan)
+			},
+			runZiDan:function(zidan){
+				var that=this;
+				zidan.timer=setInterval(function(){
+					zidan.style.top=(zidan.offsetTop-4)+'px';
+					if(zidan.offsetTop<=zidan.offsetHeight*(-1))
+					{
+						zidan.remove();
+					}
+					for(var i=0;i<that.arrLi.length;i++)
+					{
+						if(that.pz(zidan,that.arrLi[i]))
+						{
+							that.arrLi[i].blood-=1;
+							if(that.arrLi[i].blood==0)
+							{
+								var left=that.arrLi[i].offsetLeft+that.arrLi[i].parentNode.offsetLeft;
+								var top=that.arrLi[i].offsetTop+that.arrLi[i].parentNode.offsetTop;
+								var span=that.score.getElementsByTagName('span')[0];
+								span.innerHTML=parseInt(span.innerHTML)+that.arrLi[i].score;
+								clearInterval(that.arrLi[i].timer);
+								that.arrLi[i].remove();
+								that.createBoom(left,top);
+								if(that.arrLi.length==0)
+								{
+									if(that.guanka<4)
+									{
+										that.guanka+=1;
+										that.createEnemy();
+									}
+								}
+							}
+							clearInterval(zidan.timer);
+							zidan.remove();
+						}
+					}
+				},30);
+			},
+			ring:function(){
+				var embed=document.createElement('embed');
+				embed.src="music/zidan.mp3";
+				embed.auotoplay="true";
+				document.body.appendChild(embed);
+				setTimeout(function(){//这里消除声音元素
+					embed.remove();
+				},2000);
+			},
+			pz:function(obj1,obj2)//元素2为li，碰撞检测
+			{
+				var L1=obj1.offsetLeft;
+				var R1=L1+obj1.offsetWidth;
+				var T1=obj1.offsetTop;
+				var B1=T1+obj1.offsetHeight;
+
+				var L2=obj2.offsetLeft+obj2.parentNode.offsetLeft;
+				var R2=L2+obj2.offsetWidth;
+				var T2=obj2.offsetTop+obj2.parentNode.offsetTop;
+				var B2=T2+obj2.offsetHeight;
+				if(L1>R2||R1<L2||T1>B2||B1<T2)
+				{
+					return false;
+				}
+				else
+				{
+					return true;
+				}
+			},
+			onFlight:function(){
+				var that=this;
+				setInterval(function(){
+					var length=that.arrLi.length
+					var li=that.arrLi[Math.ceil(Math.random()*length)];
+					oneMove(li);
+				},2000);
+				function oneMove(li){
+					li.timer=setInterval(function(){
+						var air=that.air; 
+						var x1=li.offsetLeft+li.parentNode.offsetLeft;
+						var y1=li.offsetTop+li.parentNode.offsetTop;
+						var x2=air.offsetLeft;
+						var y2=air.offsetTop;
+						var x=x2-x1;
+						var y=y2-y1;
+						var z=Math.sqrt(x*x+y*y);
+						li.style.left=(li.offsetLeft+li.speed*(x/z))+"px";
+						var speedY=li.speed*(y/z)
+						if(speedY<2){
+							speedY=2;
+						}
+						li.style.top=(li.offsetTop+speedY)+"px";
+						if(li.offsetTop>that.oParent.offsetHeight)
+						{
+							clearInterval(li.timer);
+							li.remove();
+							if(that.arrLi.length==0)
+							{
+								if(that.guanka<4)
+								{
+									that.guanka+=1;
+									that.createEnemy();
+								}
+							}
+						}
+						if(that.pz(air,li)){
+							alert('游戏结束');
+							window.location.reload();
+						}
+					},30);
+					
+				}
+			},
+			createBoom:function(left,top){
+				var boom=document.createElement('div');
+				boom.className="boom";
+				boom.style.top=top+"px";
+				boom.style.left=left+"px";
+				this.oParent.appendChild(boom);
+				var num=2;
+				var timer=setInterval(function(){
+					boom.style.backgroundImage="url('img/boom"+num+".png')";
+					num++;
+					if(num==7)
+					{
+						clearInterval(timer);
+						boom.remove();
+					}
+				},30);
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<embed src="music/back.mp3" loop=1000 autoplay=true />
+	<div id="screen">
+		<div id="startGame">开始游戏</div>
+	</div>
+</body>
+</html>
