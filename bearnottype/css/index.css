@@ -1,4 +1,4 @@
-html,body {
+﻿html,body {
 	min-height: 100%;
 }
 textarea {
@@ -78,7 +78,7 @@ textarea {
 }
 .voice-wrap {
 	z-index: 1;
-	top: -3px;
+	top: 5px;
 	right: 2px;
 	width: 8.4%;
 	height: 4.8%;
