@@ -2,7 +2,7 @@
 
 	// 要预加载的图片
 	var imgs = {
-		pre: '/app/images',
+		pre: 'images',
 		list: {
 			common: [
 				'active.png',
