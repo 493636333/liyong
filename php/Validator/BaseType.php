@@ -29,6 +29,7 @@
 			return false;
 		}
 
+		// 这里的bool包括 true:false; 1:0; '1':'0'; 'true':'false'
 		static function bool($input) {
 			if(is_bool($input)){
 				return true;
@@ -58,7 +59,7 @@
 		static function array($input) {
 			if (is_array($input)) {
 				foreach ($input as $key => $value) {
-					if(!self::int($input)){
+					if(!self::int($key)){
 						return false;
 					}
 				}
@@ -71,7 +72,7 @@
 		static function object($input) {
 			if (is_array($input)) {
 				foreach ($input as $key => $value) {
-					if(!self::int($input)){
+					if(!self::int($key)){
 						return true;
 					}
 				}

@@ -56,3 +56,34 @@ new V(array(
          
 对象(数组):可以递归  可以单个检验  可以统一检验类型和属性
 *代表所有这个字段都必须验证这个规则
+
+
+输入类型:
+============================
+array  $_Request  Bingo::get()
+
+
+class Action{
+	// 整个接口的config
+	$config = array(
+		tbs => 60,
+		needLogin => true,
+		filter => 'sex name'
+	)
+
+	// 数据格式校验
+	function requestRules () {
+		// 默认return true，不校验
+		return array (
+			'name' => 'required|reg:/ddd/|',
+		)
+	}
+
+	// 数据过滤
+	function filter () {
+		// 默认return true，不过滤
+		return array (
+			'name' => 'boolen',
+		)
+	}
+}
