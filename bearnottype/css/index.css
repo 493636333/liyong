@@ -107,7 +107,7 @@ textarea {
 		-o-transform:rotate(360deg); 
 	}
 }
-@-webkit-keyframes myfirst
+@-webkit-keyframes voice-play
 {
 	from {
 		transform:rotate(0deg);
