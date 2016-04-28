@@ -1,5 +1,5 @@
 ;(function (argument) {
-    //PageTransitions
+    /*页面类*/
     var Page = Event.extend({
         init: function (game, obj) {
             this.game = game;
@@ -10,6 +10,7 @@
         }
     });
 
+    /*题页面类*/
     var RequestionPage = Page.extend({
         init: function (game, obj) {
             var that = this;
@@ -69,6 +70,7 @@
         }
     });
 
+    /*整个游戏的主控制器*/
     var Game = Class.extend({
         init: function () {
             this.defaultConfig = {
@@ -222,4 +224,4 @@
         }
     });
     this.Game = Game;
-})()
+})();
