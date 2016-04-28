@@ -1,0 +1,91 @@
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 700px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    html {
+        font-size: 20px;
+    }
+}
+body{
+	font-family: PingFang SC Regular,Hiragino Sans GB W3;
+	background-color: #f1f1f1;
+}
+body,html,ul,li,h1,h2,h3,h4,h5,h6,p{
+	margin: 0;
+	padding: 0;
+}
+body,html{
+    box-sizing: border-box;
+	height: 100%;
+}
+li {
+	list-style-type: none;
+}
+.fr {
+    float: right;
+}
+.fl {
+    float: left;
+}
+.clearfix:after{
+    content: "";
+    display: block;
+    clear: both;
+}
+button,input[type="button"],input[type="submit"] {
+    border-style: none;
+    outline-width: 0;
+}
+
+.container {
+    padding: 0 10px;
+}
+h1,h2,h3,h4,h5,h6 {
+    color: #252525;
+}
+input,button {
+    outline-style: none;
+}
+.font12 {
+	font-size: 1rem;
+}
+.font13 {
+    font-size: 1.1rem;
+}
+.font14 {
+	font-size: 1.16rem;
+}
+.font15 {
+    font-size: 1.25rem;
+}
+.font16 {
+	font-size: 1.33rem;
+}
+.font17 {
+    font-size: 1.41rem;
+}
+.font18 {
+	font-size: 1.5rem;
+}
+.font20 {
+	font-size: 1.66rem;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+body {
+    color: #252525;
+}
+button[disabled] {
+    background-color: #dbdbdb;
+}
