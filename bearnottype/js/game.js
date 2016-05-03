@@ -61,6 +61,7 @@
                 var className = $(this).parent().addClass('active')[0].className;
                 if(that.key != null) {
                     that.$element.find('.select-' + that.key).removeClass('active');
+                    that.key = null;
                 }
                 that.key = +className.match(/select-(\d+)/)[1];
             });
