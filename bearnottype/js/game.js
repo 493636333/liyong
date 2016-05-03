@@ -59,7 +59,7 @@
             // 选项绑定事件
             this.$element.on('click', '.text', function () {
                 var $parent = $(this).parent();
-                var clickKey = $parent[0].className.match(/select-(\d+)/)[1];
+                var clickKey = +$parent[0].className.match(/select-(\d+)/)[1];
                 if(that.key != null && that.key === clickKey) {
                     $parent.removeClass('active');
                     that.key = null;
