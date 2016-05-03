@@ -58,12 +58,14 @@
             });
             // 选项绑定事件
             this.$element.on('click', '.text', function () {
-                var className = $(this).parent().addClass('active')[0].className;
+                var className;
                 if(that.key != null) {
                     that.$element.find('.select-' + that.key).removeClass('active');
                     that.key = null;
+                } else {
+                    className = $(this).parent().addClass('active')[0].className;
+                    that.key = +className.match(/select-(\d+)/)[1];
                 }
-                that.key = +className.match(/select-(\d+)/)[1];
             });
         },
         checkAnswer: function () {
