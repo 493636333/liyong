@@ -64,11 +64,11 @@
                     $parent.removeClass('active');
                     that.key = null;
                 } else {
-                    $parent.addClass('active');
-                    that.key = clickKey;
                     if(that.key) {
                         that.$element.find('.select-' + that.key).removeClass('active');
                     }
+                    $parent.addClass('active');
+                    that.key = clickKey;
                 }
             });
         },
