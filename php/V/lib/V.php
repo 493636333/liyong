@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * @file 数据校验类，对外提供的统一类
-	 * @author liyong18
+	 * @author liyong
 	 * @date 2016-8-26
 	 */
 

@@ -1,89 +1,159 @@
-# 验证器思路
-## 无论在何时，验证都是表单提交必不可少的环节，但是如果你已经为繁杂的if else感到厌烦，那么我们需要一个强大的验证器来帮助我们做这件事, 还有在做mis的时候，最麻烦的就是数据转化
 
-数据转化:
-===========
-bool转化，前端传过来的是'True','False',转化为 1, 0
-设置默认值,如果没有值，设置默认值
-前端传过来的可能全是字符串，是否需要转化
-图片: 转化为图片
+# V验证库介绍
 
-###接口设计
+## 项目介绍
 
-对于整个接口来说:
-===========
-1. 是否登录
-2. 是否tbs校验
-
-对于单个数据来说:
-===========
-1. 是否是必须
-2. 如果有数据才校验，没有数据也算通过
-
-数据的基本类型:
-===========
-int number string bool
-
-数据的扩展类型
-===========
-email tel id-card link version date date-time ip...
-
-两个数据比较
-=============
-required_if()  //当某个字段满足某个值才校验
-same  // 是否与某个字段相等，比如输入两次密码
-gt    // 是否大于某个值
-
-注释:
-可以比较的类型: int number version date date-time ...
-
-new V(array(
-    '*name'=>'required|string|length[min(3),max(5)]',
-    'xi'=>'required|int|in(1,2,3,6)',
-    'friend'=>'array'
-    'friend[]' => array(
-        'name'=>'required'
-    )
-),60);
-
-整个接口:tbs校验
-        :是否登录
-单个数据:required   
-         基础类型:int float(0.2f) string bool number array file
-         类型:tel email url version date datetime ip
-         属性:number->value(min max minq maxq nq eq in between after)  string->length string->byte(min max minq maxq nq) file->size,type() array->length
-         条件:required_if(field,value)  same(field)
-         
-对象(数组):可以递归  可以单个检验  可以统一检验类型和属性
-*代表所有这个字段都必须验证这个规则
-
-
-输入类型:
-============================
-array  $_Request  Bingo::get()
-
-
-class Action{
-	// 整个接口的config
-	$config = array(
-		tbs => 60,
-		needLogin => true,
-		filter => 'sex name'
+### 背景
+#### 例子1：
+### 存在问题
+1.  基本属于刀耕火种
+2. 开发效率低
+3. 验证效果差
+### 场景模拟1
+#### 栗子
+验证一个用户名，不包含特殊字符，并且长度6-8
+#### V解决方案1
+	$v = V::noSpecial()->length(6,8);
+	$v->validate($a)
+#### V解决方案2
+	$v = V::readParam('noSpecial', array('length', 6, 8));
+	$v->validate($a)
+### 场景模拟2
+#### 栗子
+有一个用户表单填写:
+name: string,长度6-8，不能含有特殊字符
+birthday:日期格式'y-m-d',最大不能超过今天
+email:邮箱
+portrait：用户头像，一个有效的url
+tel: 电话号码，一个11位的数字
+password: 密码，英文加数字,5到6位
+passwordC:确认密码，必须与password相等
+graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
+#### V解决方案1:
+```	
+$config = array(
+		'name'=>array('string', array('length', 6, 8), 'nonSpecial'),
+		'birthday'=>'birthday',
+		'email'=>'email',
+		'portrait'=>'url',
+		'tel'=>'tel',
+		'password'=> array('nonSpecial', array('length', 5, 6)),
+		'passwordC'=>array('equal',':password'),
+		'graduationDate' => array('birthday', array('min',':birthday'))
 	)
-
-	// 数据格式校验
-	function requestRules () {
-		// 默认return true，不校验
-		return array (
-			'name' => 'required|reg:/ddd/|',
-		)
+	$v = V::readParam($config);
+	$v->validate($arr1);
+	$v->validate($arr2);
+```
+#### V解决方案2:
+```
+	$v = 
+	V::param('name'=>V::string()->length(6,8)->nonSpecial())
+	 ->param('birthday'=>V::birthday())
+	 ->param('email'=>V::email())
+	 ->param('portrait'=>V::url())
+	 ->param('tel', V::tel())
+	 ->param('password', V::nonSpecial()->length(5,6))
+	 ->param('passwordC', V::equal(':password'))
+	 ->param('graduationDate', V::birthday()->min(':birthday'));
+	$v->validate($arr1);
+	$v->validate($arr2);
+```
+##### 每次都写，太麻烦
+自定义类型
+```
+	class People extends Va_Library_AbstractRules {
+		public function __construct(){
+			$v = .....;
+			$this->appendRule($v);
+		}
 	}
+	$v = V::people();
+	$v->validate($arr1);
+```
+### 场景模拟3
+#### 栗子
+与场景2一样，但是10个用户
+#### V解决方案1:
+```
+	$tempConfig = array(
+		'name'=>array('string', array('length', 6, 8), 'nonSpecial'),
+		'birthday'=>'birthday',
+		'email'=>'email',
+		'portrait'=>'url',
+		'tel'=>'tel',
+		'password'=> array('nonSpecial', array('length', 5, 6)),
+		'passwordC'=>array('equal',':password'),
+		'graduationDate' => array('birthday', array('min',':birthday'))
+	);
+	$conig = array(
+		array('length', 10, 10), 
+		array('*' => $tempConfig),
+	);
+	$v = V::readParam($config);
+	$v->validate($arr1);
+	$v->validate($arr2);
+```
+#### V解决方案2:
+```
+	$tempV = 
+	V::param('name'=>V::string()->length(6,8)->nonSpecial())
+	 ->param('birthday'=>V::birthday())
+	 ->param('email'=>V::email())
+	 ->param('portrait'=>V::url())
+	 ->param('tel', V::tel())
+	 ->param('password', V::nonSpecial()->length(5,6))
+	 ->param('passwordC', V::equal(':password'))
+	 ->param('graduationDate', V::birthday()->min(':birthday'));
+	$v = V::every(tempV)->length(10,10);
+	$v->validate($arr1);
+	$v->validate($arr2);
+```
+### 不仅如此
 
-	// 数据过滤
-	function filter () {
-		// 默认return true，不过滤
-		return array (
-			'name' => 'boolen',
+```
+	V::param(
+		'name'=>V::noSpecial(),
+		'age'=>V::naturalNum(),
+		'friends'=>V::length(10,10)
+		'friends'=>V::param(
+			'name'=>V::noSpecial(),
+			'age'=>V::naturalNum(),
+			'friends'=>V::param(
+				'name'=>V::noSpecial(),
+				'age'=>V::naturalNum(),
+			)
 		)
-	}
-}
+	)
+```
+任何数据结构都能校验
+```
+	$array = array(
+		'friends' =>array(
+			array('name'=>'a', 'age'=>11)
+			array('name'=>'b', 'age'=>12)
+		),
+		'address'=>array(
+			'home' => '西二旗',
+			'scholl'=>'西三旗'
+		)
+	);
+	$config = array(
+		'friends.*.name'=>V::noSpecial(),
+		'address.home'=>
+		'address.school'=>
+	)
+```
+### 还想做什么
+1. 继续完善数据类型，把所有基础的数据类型全部收敛
+2. 自动转化数据类型，校验后直接拿到转化后的数据，比如字符截取等
+3. 自定义错误信息，哪里校验没通过，会返回错误信息
+4.  与action结合，参数错误直接返回，拿到的都是转化后的数据，可以放心用，不用再做数据校验。
+5. action会定义许多其它的全局校验，比如tbs校验，登录校验等
+
+### 预期效果
+
+1. 将大大减少代码量
+2. 并且校验相对较严格
+3. 减少脏数据
+4. 减少数据库压力

@@ -30,7 +30,8 @@ password: 密码，英文加数字,5到6位
 passwordC:确认密码，必须与password相等
 graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 #### V解决方案1:
-	$config = array(
+```	
+$config = array(
 		'name'=>array('string', array('length', 6, 8), 'nonSpecial'),
 		'birthday'=>'birthday',
 		'email'=>'email',
@@ -43,7 +44,9 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 	$v = V::readParam($config);
 	$v->validate($arr1);
 	$v->validate($arr2);
+```
 #### V解决方案2:
+```
 	$v = 
 	V::param('name'=>V::string()->length(6,8)->nonSpecial())
 	 ->param('birthday'=>V::birthday())
@@ -55,9 +58,10 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 	 ->param('graduationDate', V::birthday()->min(':birthday'));
 	$v->validate($arr1);
 	$v->validate($arr2);
+```
 ##### 每次都写，太麻烦
 自定义类型
-
+```
 	class People extends Va_Library_AbstractRules {
 		public function __construct(){
 			$v = .....;
@@ -66,10 +70,12 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 	}
 	$v = V::people();
 	$v->validate($arr1);
+```
 ### 场景模拟3
 #### 栗子
 与场景2一样，但是10个用户
 #### V解决方案1:
+```
 	$tempConfig = array(
 		'name'=>array('string', array('length', 6, 8), 'nonSpecial'),
 		'birthday'=>'birthday',
@@ -87,7 +93,9 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 	$v = V::readParam($config);
 	$v->validate($arr1);
 	$v->validate($arr2);
+```
 #### V解决方案2:
+```
 	$tempV = 
 	V::param('name'=>V::string()->length(6,8)->nonSpecial())
 	 ->param('birthday'=>V::birthday())
@@ -100,9 +108,10 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 	$v = V::every(tempV)->length(10,10);
 	$v->validate($arr1);
 	$v->validate($arr2);
+```
 ### 不仅如此
 
-	
+```
 	V::param(
 		'name'=>V::noSpecial(),
 		'age'=>V::naturalNum(),
@@ -116,8 +125,9 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 			)
 		)
 	)
+```
 任何数据结构都能校验
-
+```
 	$array = array(
 		'friends' =>array(
 			array('name'=>'a', 'age'=>11)
@@ -133,7 +143,7 @@ graduationDate: 毕业日期，不能小于出生日期,也不能比今天大
 		'address.home'=>
 		'address.school'=>
 	)
-
+```
 ### 还想做什么
 1. 继续完善数据类型，把所有基础的数据类型全部收敛
 2. 自动转化数据类型，校验后直接拿到转化后的数据，比如字符截取等

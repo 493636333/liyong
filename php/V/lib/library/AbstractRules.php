@@ -1,7 +1,7 @@
 <?php
 	/**
 	 * @file 多条rule可以合并成一条
-	 * @author liyong18
+	 * @author liyong
 	 * @date 2016-07-29
 	 */
 	

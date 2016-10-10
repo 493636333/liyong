@@ -1,7 +1,7 @@
 <?
 	/**
 	 * @file 优先级迭代器接口
-	 * @author liyong18(liyong18@baidu.com)
+	 * @author liyong(493636333@qq.com)
 	 * @date 2016-07-107
 	 */
 	
