@@ -13,11 +13,15 @@
 #### 栗子
 验证一个用户名，不包含特殊字符，并且长度6-8
 #### V解决方案1
+```
 	$v = V::noSpecial()->length(6,8);
 	$v->validate($a)
+```
 #### V解决方案2
+```
 	$v = V::readParam('noSpecial', array('length', 6, 8));
 	$v->validate($a)
+```
 ### 场景模拟2
 #### 栗子
 有一个用户表单填写:
