@@ -1,4 +1,4 @@
-﻿<?
+<?
 	class BaseType{
 		static function required($input) {
 			if (!isset($input) || $input === "") {
