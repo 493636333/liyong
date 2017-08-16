@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" >
+	<meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<title>你是不是贝爷的菜</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
+	<link rel="stylesheet" type="text/css" href="css/multilevelmenu.css" />
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<link rel="stylesheet" type="text/css" href="css/animations.css" />
+	<link rel="stylesheet" type="text/css" href="css/animation1.css" />
+	<script src="js/modernizr.custom.js"></script>
+</head>
+<body>
+
+	<!--loading页面-->
+	<div class="grey-bg-page page0">
+		<div class="loading-wrap">
+			<div class="loading">
+				<div class="fl"></div><img src="images/page0/head1.png">
+			</div>
+		</div>
+	</div>
+
+	<!--装预加载的图片的容器-->
+	<div class="loading-img-wrap">
+		
+	</div>
+
+	<!--遮罩层-->
+	<div class="layer"></div>
+	
+	<!--下面这些是loading后要展示的-->
+	<textarea id="hide-textarea">
+		<div class="audio-wrap">
+			<audio src="images/common/bgmusic.mp3" autoplay="true" loop="loop" id="bgmusic"></audio>
+			<audio src="images/common/click.WAV" id="click-music"></audio>
+		</div>
+		<!--分享页-->
+		<div class="grey-bg-page share-page">
+			<img class="share-bg" src="images/common/share-bg.png">
+			<img class="answer" src="images/common/answer.png">
+		</div>
+		<div id="pt-main" class="img-bg-page pt-perspective">
+			<div class="pt-page img-bg-page page1">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<img class="beiye" src="images/page1/beiye-1.png" />
+					<img class="ruocai" src="images/page1/ruocai.png" />
+					<img class="name" src="images/page1/name.png" />
+					<div class="start-btn beforeclick"></div>
+					<img src="images/common/shuzhi.png" class="shuzhi" />
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page2 page-question page-question-1">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<div class="question-wrap"></div>
+					<ul class="answer-list">
+						<li class="select select-1">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-2">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-3">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+					</ul>
+					<div class="control-wrap">
+						<div class="retry-btn btn"></div>
+						<div class="continue-btn btn"></div>
+					</div>
+					<div class="control-wrap-layer"></div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page3 page-question page-question-2">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<div class="question-wrap"></div>
+					<ul class="answer-list">
+						<li class="select select-1">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-2">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-3">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+					</ul>
+					<div class="control-wrap">
+						<div class="retry-btn btn"></div>
+						<div class="continue-btn btn"></div>
+					</div>
+					<div class="control-wrap-layer"></div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page4 page-question page-question-3">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<div class="question-wrap"></div>
+					<ul class="answer-list">
+						<li class="select select-1">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-2">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-3">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+					</ul>
+					<div class="control-wrap">
+						<div class="retry-btn btn"></div>
+						<div class="continue-btn btn"></div>
+					</div>
+					<div class="control-wrap-layer"></div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page5 page-question page-question-4">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<div class="question-wrap"></div>
+					<ul class="answer-list">
+						<li class="select select-1">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-2">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-3">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+					</ul>
+					<div class="control-wrap">
+						<div class="retry-btn btn"></div>
+						<div class="continue-btn btn"></div>
+					</div>
+					<div class="control-wrap-layer"></div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page6 page-question page-question-5">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<div class="question-wrap"></div>
+					<ul class="answer-list">
+						<li class="select select-1">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-2">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+						<li class="select select-3">
+							<div class="text"><img src="images/common/active.png"></div><div class="img"></div>
+						</li>
+					</ul>
+					<div class="control-wrap">
+						<div class="retry-btn btn"></div>
+						<div class="continue-btn btn"></div>
+					</div>
+					<div class="control-wrap-layer"></div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page7 page-result page-result-1">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<img class="logo" src="images/common/logo.png">
+					<img class="product" src="images/common/product.png">
+					<div class="control-wrap">
+						<div class="again-btn btn"></div>
+						<div class="share-btn btn"></div>
+					</div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page8 page-result page-result-2 ">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<img class="logo" src="images/common/logo.png">
+					<img class="product" src="images/common/product.png">
+					<div class="control-wrap">
+						<div class="again-btn btn"></div>
+						<div class="share-btn btn"></div>
+					</div>
+				</div>
+			</div>
+			<div class="pt-page img-bg-page page9 page-result page-result-3">
+				<div class="inner-page">
+					<div class="voice-wrap voice-play"></div>
+					<img class="logo" src="images/common/logo.png">
+					<img class="product" src="images/common/product.png">
+					<div class="control-wrap">
+						<div class="again-btn btn"></div>
+						<div class="share-btn btn"></div>
+					</div>
+				</div>
+			</div>
+			<div class="pt-page"></div>
+		</div>
+	</textarea>
+	
+	<script src="js/zepto.min.js"></script>
+	<script src="js/jquery.dlmenu.js"></script>
+	<script src="js/pagetransitions.js"></script>
+	<script type="text/javascript" src="js/Class.js"></script>
+	<script type="text/javascript" src="js/loader.js"></script>
+	<script type="text/javascript" src="js/game.js"></script>
+	<script src="js/index.js"></script>
+</body>
+</html>

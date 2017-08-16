@@ -1,0 +1,32 @@
+.banner {
+	background-color: #2b4eb2;
+}
+.left-nav > div {
+	border: 1px solid #c7c7c7;
+	margin-bottom: 30px;
+}
+.channel h2 {
+	border-bottom: 1px solid #c7c7c7;
+}
+.channel div {
+	padding-left:27px;
+	line-height: 26px;
+	margin-top: 10px;
+}
+.channel {
+	padding-bottom: 10px;
+}
+.main-content h3 {
+	background-image: url(../images/join-us/right-arrow.jpg);
+}
+.main-content h3 span {
+	color: #888;
+	font-size: 16px;
+	margin-left: 8px;
+}
+.main-content li {
+	line-height: 28px;
+}
+.main-content {
+	padding-bottom: 50px;
+}
