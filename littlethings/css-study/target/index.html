@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>target目标伪类选择器</title>
+	<style type="text/css">
+		.accordionMenu {
+			width: 500px;
+			padding: 10px;
+		}
+		.accordionMenu h2 {
+			margin: 5px 0;
+			padding: 0;
+			position: relative;
+			background: #333;
+		}
+
+		.accordionMenu h2:before {
+			border: 5px solid #fff;
+			content: "";
+			border-color: transparent transparent transparent #999;
+			height: 0;
+			position: absolute;
+			right: 10px;
+			top: 15px;
+			width: 0;
+		}
+
+		.accordionMenu h2 a {
+			color: #999;
+			display: block;
+			font-weight: normal;
+			margin: 0;
+			font-size: 13px;
+			padding: 10px 10px;
+			text-decoration: none;
+		}
+
+		.accordionMenu h2 a:hover,
+		.accordionMenu h2 a:active,
+		.accordionMenu h2 a:focus,
+		.accordionMenu :target h2 a
+		{
+			background-color: #2288dd;
+			color: #fff;
+		}
+
+		.accordionMenu p {
+			margin: 0;
+			height: 0;
+			overflow: hidden;
+			padding: 0 10px;
+			-webkit-transition: height 0.5s ease-in;
+			transition: height 0.5s ease-in;
+		}
+
+		.accordionMenu :target p {
+			height: 100px;
+			overflow: auto;
+		}
+
+		.accordionMenu :target a {
+			color: #fff;
+		}
+
+		.accordionMenu :target h2:before {
+			border-color: #fff transparent transparent;
+		}
+	</style>
+</head>
+<body>
+	<div class="accordionMenu">
+		<div class="menuSection" id="brand">
+			<h2><a href="#brand">Brand</a></h2>
+			<p>
+				哈哈哈哈嘻嘻嘻嘻安师大SD
+			</p>
+		</div>
+
+		<div class="menuSection" id="promotion">
+			<h2><a href="#promotion">Brand</a></h2>
+			<p>
+				哈哈哈哈嘻嘻嘻嘻安师大SD
+			</p>
+		</div>
+
+		<div class="menuSection" id="event">
+			<h2><a href="#event">Brand</a></h2>
+			<p>
+				哈哈哈哈嘻嘻嘻嘻安师大SD
+			</p>
+		</div>
+	</div>
+</body>
+</html>
